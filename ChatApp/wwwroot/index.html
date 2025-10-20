@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat em Tempo Real</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script src="Scripts/Index.js"></script>
+</head>
+<body>
+    <h2> Chat em Tempo Real</h2>
+    
+        <div class="modal fade" id="usernameModal" tabindex="-1" role="dialog" aria-labelledby="usernameModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="usernameModalLabel">Bem-vindo!</h5>
+          </div>
+          <div class="modal-body">
+            <p>Digite seu nome para entrar no chat:</p>
+            <input type="text" id="modalUsername" class="form-control" placeholder="Seu nome">
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="confirmUsername" class="btn btn-primary">Entrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <input id="messageInput" type="text" placeholder="Digite uma mensagem..." />
+    <button id="sendButton">Enviar</button>
+
+    <ul id="messagesList"></ul>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #eaeaea;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+h2 {
+    color: #00ffcc;
+}
+
+#messagesList {
+    list-style: none;
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    overflow-y: auto;
+    background: #1e1e1e;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+    #messagesList li {
+        margin-bottom: 8px;
+        background: #252525;
+        padding: 6px 10px;
+        border-radius: 6px;
+    }
+
+input, button {
+    margin: 5px;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    font-size: 15px;
+}
+
+button {
+    background-color: #00ffcc;
+    cursor: pointer;
+}
+sss

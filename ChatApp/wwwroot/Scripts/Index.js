@@ -44,7 +44,7 @@
                     .catch(function (err) {
                         console.error(err.toString());
                     });
-                $("messageInput").val("")
+                $("#messageInput").val("")
             }
         });
     }

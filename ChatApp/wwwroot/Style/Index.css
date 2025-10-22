@@ -22,19 +22,20 @@ h2 {
 
 #roll {
     flex: 1;
-    overflow-y: auto; 
+    overflow-y: auto;
     padding: 10px;
+    color: blue;
 }
 
 #messagesList {
-    flex: 1; 
+    flex: 1;
     list-style: none;
     margin: 0;
     padding: 10px;
     overflow-y: auto;
 }
 
-#menuOptions li{
+#menuOptions li {
     color: black
 }
 
@@ -61,4 +62,16 @@ button {
     background-color: #f8f8f8;
 }
 
+#memberList li {
+    color: black;
+    font-size: large;
+}
 
+#messageInput {
+    border
+}
+
+#memberList li::marker {
+    color: limegreen;
+    font-size: 20px;
+}

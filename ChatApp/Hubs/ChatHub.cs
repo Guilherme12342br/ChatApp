@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace ChatApp.Hubs
             if (connectedUsers.TryRemove(Context.ConnectionId, out string username))
             {
                 await Clients.All.SendAsync("UpdateUserList", connectedUsers.Values);
-                await Clients.All.SendAsync("ReceiveMessage", "Sistema", $"{username} saiu do chat");
+                await Clients.All.SendAsync("UserOut", username);
             }
             await base.OnDisconnectedAsync(exception);
         }
@@ -27,10 +28,10 @@ namespace ChatApp.Hubs
         {
             connectedUsers[Context.ConnectionId] = username;
             await Clients.All.SendAsync("UpdateUserList", connectedUsers.Values);
-            await Clients.All.SendAsync("ReceiveMessage", "Sistema", $"{username} entrou do chat");
+            await Clients.All.SendAsync("UserJoined", username);
         }
 
-        public async Task SendMessage (string user, string message)
+        public async Task SendMessage(string user, string message)
         {
             // envia mensagem para todos que estão conectados
             await Clients.All.SendAsync("ReceiveMessage", user, message);

@@ -37,28 +37,19 @@ function modalShow() {
     });
 }
 
-let color = '#';
-function getUserNameColor() {
-    const letter = '0123456789ABCDEF';
-    for (let i = 0; i < 6; i++) {
-        color += letter[Math.floor(Math.random() * 16)];
-    }
-    console.log(color);
-    return color;
-}
 
 // função que starta o chat e traz as suas funções
 function startChat(username) {
 
-    connection.on("UserJoined", function (username) {
+    connection.on("UserJoined", function (username, color) {
         var $li = $("<li>");
-        $li.html(`<span style="color:blue">Sistema</span>: <span style="color:${color}">${username}</span> entrou no chat`)
+        $li.html(`<span style="color:blue">Sistema</span>: ${username}entrou no chat`)
         $("#messagesList").append($li);
     });
 
-    connection.on("UserOut", function (username) {
+    connection.on("UserOut", function (username, color) {
         var $li = $("<li>");
-        $li.html(`<span style="color:blue">Sistema</span>: <span style="color:red">${username}</span> saiu do chat`)
+        $li.html(`<span style="color:blue">Sistema</span>: ${username} saiu do chat`)
         $("#messagesList").append($li);
     });
 
@@ -70,8 +61,8 @@ function startChat(username) {
         });
     });
 
-    connection.on("ReceiveMessage", function (username, message) {
-        /*const $li = $("<li>").text(`${username}: ${message}`);*/
+    connection.on("ReceiveMessage", function (username, message, color) {
+ 
         var $li = $("<li>");
         $li.html(`<span style="color:${color}">${username}</span>: ${message}`)
         $("#messagesList").append($li);

@@ -1,13 +1,9 @@
 ﻿body {
     font-family: Arial, sans-serif;
     background-color: lightgray;
-    color: #eaeaea;
+
     flex-direction: column;
     align-items: center;
-}
-
-h2 {
-    color: #00ffcc;
 }
 
 #messageBox {
@@ -49,10 +45,6 @@ input, button {
     font-size: 15px;
 }
 
-button {
-    background-color: #fffff;
-    cursor: pointer;
-}
 
 #inputArea {
     display: flex;
@@ -62,16 +54,27 @@ button {
     background-color: #f8f8f8;
 }
 
+#memberList {
+    border: 1px solid black;
+    border-radius: 3px;
+    list-style: none;
+    padding-left:0px;
+    margin:0px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
 #memberList li {
     color: black;
-    font-size: large;
+    font-size: small;
+    position: center;
+    margin: 5px 0;
 }
 
-#messageInput {
-    border
+#sendButton{
+    background-color: lawngreen;
 }
 
-#memberList li::marker {
-    color: limegreen;
-    font-size: 20px;
-}
+

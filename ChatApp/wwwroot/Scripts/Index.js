@@ -43,7 +43,7 @@ function startChat(username) {
 
     connection.on("UserJoined", function (username, color) {
         var $li = $("<li>");
-        $li.html(`<span style="color:blue">Sistema</span>: ${username}entrou no chat`)
+        $li.html(`<span style="color:blue">Sistema</span>: ${username} entrou no chat`)
         $("#messagesList").append($li);
     });
 
@@ -86,5 +86,4 @@ function startChat(username) {
 $(document).ready(function () {
     const connection = conectarSignalR();
     modalShow();
-    getUserNameColor();
 });

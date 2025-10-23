@@ -11,6 +11,9 @@ app.MapGet("/", async context =>
     context.Response.Redirect("/views/index.html");
 });
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+app.Urls.Add($"http://*:{port}");
+
 app.UseStaticFiles();
 
 app.MapHub<ChatHub>("/chatHub");

@@ -6,10 +6,8 @@ builder.Services.AddSignalR();
 
 var app = builder.Build();
 
-app.MapGet("/", async context =>
-{
-    context.Response.Redirect("/views/index.html");
-});
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 app.Urls.Add($"http://*:{port}");

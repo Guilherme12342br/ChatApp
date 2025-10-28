@@ -51,12 +51,14 @@ function startChat(username) {
         var $li = $("<li>");
         $li.html(`<span style="color:blue">Sistema</span>: ${username} entrou no chat`)
         $("#messagesList").append($li);
+        scrollToBottom();
     });
 
     connection.on("UserOut", function (username, color) {
         var $li = $("<li>");
         $li.html(`<span style="color:blue">Sistema</span>: ${username} saiu do chat`)
         $("#messagesList").append($li);
+        scrollToBottom();
     });
 
     connection.on("UpdateUserList", function (username) {
@@ -74,6 +76,9 @@ function startChat(username) {
         $("#messagesList").append($li);
         receivedSound.currentTime = 0;
         receivedSound.play().catch(err => console.log("Erro ao tocar som:", err));
+
+        scrollToBottom();
+
     });
 
     $("#sendButton").click(function () {
@@ -110,10 +115,14 @@ function startChat(username) {
             $("#messageInput").val("");
         }
     }
-
-
-    
 }
+
+function scrollToBottom() {
+    const messagesList = $("#messagesList");
+    messagesList.animate({ scrollTop: messagesList.prop("scrollHeight") }, 300);
+}
+
+
 $(document).ready(function () {
     conectarSignalR();
     modalShow();

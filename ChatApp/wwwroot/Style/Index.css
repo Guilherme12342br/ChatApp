@@ -29,6 +29,8 @@
     margin: 0;
     padding: 10px;
     overflow-y: auto;
+    height: 400px;
+    padding-right: 10px;
 }
 
 #menuOptions li {
@@ -76,6 +78,4 @@ input, button {
 #sendButton{
     background-color: lawngreen;
 }
-
-
 

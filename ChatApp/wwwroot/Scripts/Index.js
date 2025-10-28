@@ -4,13 +4,18 @@ function conectarSignalR() {
     connection = new signalR.HubConnectionBuilder()
         .withUrl("/chatHub")
         .build();
-    return connection;
 }
+
+const receivedSound = document.getElementById("receivedSound");
+receivedSound.volume = 0.4;
+
+var soundOn = true; 
 
 
 //função que exibe modal e recolhe o username
 function modalShow() {
     let username = "";
+    $("#soundInput").html('<i class="fa fa-volume-up"></i>');
 
     $('#usernameModal').modal('show');
 
@@ -40,6 +45,7 @@ function modalShow() {
 
 // função que starta o chat e traz as suas funções
 function startChat(username) {
+    
 
     connection.on("UserJoined", function (username, color) {
         var $li = $("<li>");
@@ -62,14 +68,38 @@ function startChat(username) {
     });
 
     connection.on("ReceiveMessage", function (username, message, color) {
- 
+
         var $li = $("<li>");
         $li.html(`<span style="color:${color}">${username}</span>: ${message}`)
         $("#messagesList").append($li);
+        receivedSound.currentTime = 0;
+        receivedSound.play().catch(err => console.log("Erro ao tocar som:", err));
     });
 
-
     $("#sendButton").click(function () {
+        sendMessage();
+    });
+
+    $("#soundInput").click(function () {
+        if (soundOn) {
+            receivedSound.volume = 0;
+            soundOn = false;
+            $(this).html('<i class="fa fa-volume-off"></i>');
+        }
+        else {
+            soundOn = true;
+            receivedSound.volume = 0.4;
+            $(this).html('<i class="fa fa-volume-up"></i>');
+        }
+    })
+
+    $("#messageInput").keypress(function (e) {
+        if (e.which === 13) {
+            sendMessage();
+        }
+    });
+
+    function sendMessage() {
         const message = $("#messageInput").val().trim();
 
         if (username && message) {
@@ -77,13 +107,14 @@ function startChat(username) {
                 .catch(function (err) {
                     console.error(err.toString());
                 });
-            $("#messageInput").val("")
+            $("#messageInput").val("");
         }
-    });
-}
+    }
 
-//Main function
+
+    
+}
 $(document).ready(function () {
-    const connection = conectarSignalR();
+    conectarSignalR();
     modalShow();
 });

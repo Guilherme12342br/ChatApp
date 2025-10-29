@@ -6,6 +6,7 @@ function conectarSignalR() {
         .build();
 }
 
+
 const receivedSound = document.getElementById("receivedSound");
 receivedSound.volume = 0.4;
 
@@ -45,8 +46,8 @@ function modalShow() {
 
 // função que starta o chat e traz as suas funções
 function startChat(username) {
-    
 
+    anexarImg(username);
     connection.on("UserJoined", function (username, color) {
         var $li = $("<li>");
         $li.html(`<span style="color:blue">Sistema</span>: ${username} entrou no chat`)
@@ -80,6 +81,20 @@ function startChat(username) {
         scrollToBottom();
 
     });
+
+    connection.on("ReceiveImage", function (username, base64Image, color) {
+        var $li = $("<li>");
+
+        $li.html(`<span style="color:blue">${username}</span>:<br>
+        <img src="${base64Image}" style="max-width: 200px; border-radius: 8px; margin-top: 5px;">`);
+
+        $("#messagesList").append($li);
+        receivedSound.currentTime = 0;
+        receivedSound.play().catch(err => console.log("Erro ao tocar som:", err));
+
+        scrollToBottom();
+    });
+
 
     $("#sendButton").click(function () {
         sendMessage();
@@ -122,6 +137,38 @@ function scrollToBottom() {
     messagesList.animate({ scrollTop: messagesList.prop("scrollHeight") }, 300);
 }
 
+function anexarImg(username) {
+    $("#buttonImageInput").off('click').on('click', function () {
+        document.getElementById("imageInput").click();
+    });
+
+
+    $("#imageInput").off('change').on('change', function () {
+        const file = this.files[0];
+        if (!file) return;
+         
+        const maxSizeMb = 0.2;
+
+        if (file.size / 1024 / 1024 > maxSizeMb) {
+            alert(`Arquivo excede tamanho limite de: ${maxSizeMb * 1024}KB`);
+            return;
+        }
+
+        const reader = new FileReader();
+
+
+        reader.onload = function (e) {
+            const base64Image = e.target.result;
+
+            connection.invoke("SendImage", username, base64Image)
+                .catch(function (err) {
+                    console.error(err.toString());
+                });
+        };
+        reader.readAsDataURL(file);
+        $(this).val(null);
+    });
+}
 
 $(document).ready(function () {
     conectarSignalR();

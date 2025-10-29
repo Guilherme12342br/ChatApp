@@ -53,5 +53,12 @@ namespace ChatApp.Hubs
                 await Clients.All.SendAsync("ReceiveMessage", user.username, message,user.color );
             }
         }
+        public async Task SendImage(string username, string base64Image)
+        {
+            if (connectedUsers.TryGetValue(Context.ConnectionId, out var user))
+            {
+                await Clients.All.SendAsync("ReceiveImage", user.username, base64Image,user.color );
+            }
+        }
     }
 }
